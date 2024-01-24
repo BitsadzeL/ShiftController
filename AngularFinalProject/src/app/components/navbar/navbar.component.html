@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+  <div class="nav">
+    <div>
+      <span class="left">{{'Shift controller'| translate}}</span>
+      <button *ngIf="isLoggedIn" class="right" (click)="logOut()">{{'Log Out'| translate}}</button>
+      <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <select class="form-select" (change)="ChangeLang($event)" name="" id="">
+            <option [selected]="lang==='en'" value="en">English</option>
+            <option [selected]="lang==='ge'" value="ge">ქართული</option>
+          </select>
+        </li>
+      </ul>
+    </div>
+  </div>
+</body>
+
+</html>

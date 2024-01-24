@@ -1,0 +1,87 @@
+<app-navbar></app-navbar>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+</head>
+
+<body>
+
+    <form class="form" [formGroup]="registrationForm" (ngSubmit)="Register">
+        <p class="title">{{'Register'| translate}}</p>
+
+        <div class="flex">
+            <div class="input-container">
+                <input class="input" type="text" id="firstName" formControlName="firstName" required=""
+                    placeholder="{{'Firstname'| translate}}"
+                    [class.is-invalid]="registrationForm.get('firstName')?.dirty && registrationForm.get('firstName')?.touched">
+                <div *ngIf="registrationForm.get('firstName')?.errors?.['required'] && (registrationForm.get('firstName')?.dirty || registrationForm.get('firstName')?.touched)"
+                    class="text-danger">{{'Firstname is required'| translate}}</div>
+            </div>
+
+            <div class="input-container">
+                <input class="input" type="text" id="lastName" formControlName="lastName" required=""
+                    placeholder="{{'Lastname'| translate}}"
+                    [class.is-invalid]="registrationForm.get('lastName')?.dirty && registrationForm.get('lastName')?.touched">
+                <div *ngIf="registrationForm.get('lastName')?.errors?.['required'] && (registrationForm.get('lastName')?.dirty || registrationForm.get('lastName')?.touched)"
+                    class="text-danger">{{'Lastname is required'| translate}}</div>
+            </div>
+        </div>
+
+        <label for="email">
+            <input class="input" type="text" id="email" formControlName="email" required="" placeholder="{{'Email Address'| translate}}"
+                [class.is-invalid]="registrationForm.get('email')?.dirty && registrationForm.get('email')?.touched">
+            <div *ngIf="registrationForm.get('email')?.errors?.['required'] && (registrationForm.get('email')?.dirty || registrationForm.get('email')?.touched)"
+                class="text-danger">{{'Email is required'| translate}}
+            </div>
+
+            <div *ngIf="registrationForm.get('email')?.errors?.['email'] && (registrationForm.get('email')?.dirty || registrationForm.get('email')?.touched)"
+        class="text-danger">{{'Enter email with valid format'| translate}}</div>
+        </label>
+
+        <label for="password">
+            <input class="input" type="password" id="password" formControlName="password" required=""
+                placeholder="{{'Password'| translate}}"
+                [class.is-invalid]="registrationForm.get('password')?.dirty && registrationForm.get('password')?.touched">
+            <div *ngIf="(registrationForm.get('password')?.hasError('required') || registrationForm.get('password')?.hasError('minlength')) && (registrationForm.get('password')?.dirty || registrationForm.get('password')?.touched)"
+                class="text-danger">
+                <div *ngIf="registrationForm.get('password')?.hasError('required')">{{'Password is required'| translate}}</div>
+                <div *ngIf="registrationForm.get('password')?.hasError('minlength')">{{'Password length must be at least 6 characters'| translate}}</div>
+            </div>
+        </label>
+
+        <label for="confirmPassword">
+            <input class="input" type="password" id="confirmPassword" formControlName="confirmPassword" required=""
+                placeholder="{{'Confirm password'| translate}}"
+                [class.is-invalid]="registrationForm.get('confirmPassword')?.dirty && registrationForm.get('confirmPassword')?.touched">
+            <div *ngIf="registrationForm.get('confirmPassword')?.hasError('required') && (registrationForm.get('confirmPassword')?.dirty || registrationForm.get('confirmPassword')?.touched)"
+                class="text-danger">{{'Confirm password field is required'| translate}}</div>
+            <div *ngIf="registrationForm.hasError('passwordMismatch') && (registrationForm.get('confirmPassword')?.dirty )"
+                class="text-danger">{{'Passwords do not match'| translate}}</div>
+        </label>
+
+
+        <div>
+            <label for="job">{{'Choose Your Job'| translate}}</label>
+            <select class="button" id="jobId" formControlName="jobId"
+                [class.is-invalid]="registrationForm.get('jobId')?.dirty && registrationForm.get('jobId')?.touched">
+                <option *ngFor="let job of jobOptions" [ngValue]="job">{{ job.title }}</option>
+            </select>
+            <div *ngIf="registrationForm.get('jobId')?.errors?.['required'] && (registrationForm.get('jobId')?.dirty || registrationForm.get('jobId')?.touched)"
+                class="text-danger">{{'Job is required'| translate}}</div>
+        </div>
+
+        <div class="flex-column">
+            <button class="submit" (click)="Register()">{{'Submit'| translate}}</button>
+            <button class="submit submitt" (click)="goToLogin()">{{'login'| translate}}</button>
+        </div>
+    </form>
+    
+
+</body>
+
+</html>

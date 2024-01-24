@@ -1,0 +1,40 @@
+<app-navbar></app-navbar>
+
+<body>
+    <link rel="stylesheet" href="./login.component.css">
+
+
+    <form [formGroup]="loginForm">
+        <h2>{{'Login'| translate}}</h2>
+        <div>
+            <input type="text" name="email" id="email" formControlName="email" placeholder="{{'Enter email'| translate}}"
+                [class.is-invalid]="loginForm.get('email')?.dirty && loginForm.get('email')?.touched">
+        
+            <div *ngIf="loginForm.get('email')?.errors?.['required'] && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)"
+                class="text-danger">{{'Enter email'| translate}}</div>
+        
+            <div *ngIf="loginForm.get('email')?.errors?.['email'] && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)"
+                class="text-danger">{{'Enter email with valid format'| translate}}</div>
+        </div>
+        
+
+
+        <div>
+
+            <input type="password" name="password" id="password" formControlName="password" placeholder="{{'Enter password'| translate}}"
+                [class.is-invalid]="loginForm.get('password')?.dirty && loginForm.get('password')?.touched">
+
+            <div *ngIf="loginForm.get('password')?.errors?.['required'] && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)"
+                class="text-danger">{{'Enter password'| translate}}</div>
+        </div>
+
+        <button class="submit" (click)="Login()">{{'Log in!!!!'| translate}}</button>
+        <button class="submit submitt" (click)="goToRegister()">{{'Not account? Register'| translate}}</button>
+
+        <style>
+
+        </style>
+    </form>
+
+
+</body>

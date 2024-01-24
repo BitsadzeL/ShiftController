@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <app-navbar></app-navbar>
+  <app-dashboard></app-dashboard>
+  <div class="container mt-4">
+    <button type="button" class="collapsible btn btn-danger" (click)="toggleSection('coWorkersSection')">{{'Manage co-workers'| translate}}</button>
+    <div [ngClass]="{ 'collapsible-section': !showCoWorkersSection }">
+      <h4>{{'List of  co-workers'| translate}}</h4>
+      <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">{{'User ID' | translate}}</th>
+            <th scope="col">{{'First Name' | translate}}</th>
+            <th scope="col">{{'Last Name' | translate}}</th>
+            <th scope="col">{{'Role ID' | translate}}</th>
+            <th scope="col">{{'Role' | translate}}</th>
+            <th scope="col">{{'Remove' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users" class="user-item">
+            <td>{{ user.id }}</td>
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.lastName }}</td>
+            <td>{{ user.roleId }}</td>
+            <td>
+              <span *ngIf="user.roleId == 1" style="color: red">{{'Admin' | translate}}</span>
+              <span *ngIf="user.roleId == 2" style="color: green">{{'Worker' | translate}}</span>
+            </td>
+            <td>
+              <button class="btn btn-danger" (click)="onDeleteUser(user.id)">{{'DELETE' | translate}}</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+
+
+
+
+
+
+
+      <h3>{{'Change role of workers' | translate}}</h3>
+      <div style="display: flex; flex-direction: row; align-items: center;">
+        <div style="margin-right: 10px;">
+          <label for="userId">{{'Enter User ID:' | translate}}</label>
+          <input type="text" id="userId" class="form-control" placeholder="{{'Enter User ID:' | translate}}" #userIdInput>
+        </div>
+
+        <div style="margin-right: 10px;">
+          <label for="newRoleId">{{'Enter New Role ID:' | translate}}</label>
+          <input type="text" id="newRoleId" class="form-control" placeholder="{{'New Role ID' | translate}}" #newRoleIdInput>
+        </div>
+
+        <button class="btn btn-primary" style="margin-top: 25px"
+          (click)="changeUserRole(userIdInput.value, newRoleIdInput.value)">{{'Change Role' | translate}}</button>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="container mt-4">
+    <button type="button" class="collapsible btn btn-warning" (click)="toggleSection('jobsSection')"> {{'Manage jobs'| translate}}
+    </button>
+    <div [ngClass]="{ 'collapsible-section': !showJobsSection }">
+      <h4>{{'List of jobs'| translate}}</h4>
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th scope="col">{{'Job ID'|translate}}</th>
+            <th scope="col">{{'Job title' |translate}}</th>
+            <th scope="col">{{'Remove' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let job of jobs" class="user-item">
+            <td>{{ job.id }}</td>
+            <td>{{ job.title }}</td>
+            <td>
+              <button class="btn btn-danger" (click)="onDeleteJob(job.id)">{{'DELETE'| translate}}</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+
+
+
+
+
+
+      
+      <form class="form-inline mb-3" style="display: flex; gap:10px">
+        <label for="newPosition" class="mr-2">{{'Enter new position:' | translate}}</label>
+        <input type="text" class="form-control mr-2" id="newPosition" name="newPosition" placeholder="{{'Job Title' | translate}}"
+          style="width: 200px;" [(ngModel)]="newPositionTitle">
+        <button type="button" class="btn btn-success" (click)="addNewPositionToDatabase()">{{'+ADD' | translate}}</button>
+      </form>
+    </div>
+  </div>
+
+</body>
+
+</html>

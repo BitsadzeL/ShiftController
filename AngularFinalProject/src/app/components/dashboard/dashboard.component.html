@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <p>{{"Current Week:"|translate}} {{ CurrentWeek()}}</p>
+  <button (click)="PreviousWeek()">{{'Previous week'| translate}}</button>
+  <button (click)="NextWeek()">{{'Next week'| translate}}</button>
+
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th *ngFor="let day of weekDays">{{ day | date:'EEE MMM dd' }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let role of alljobs">
+        <td>{{ role.title }}</td>
+        <td *ngFor="let day of getWeekDates()">
+          <div *ngFor="let shift of getShifts(role.title, day)" class="schedule-card" [class.morning]="shift.isMorning">
+            {{ shift.title }}
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+
+  <div *ngIf="roleID === '2'">
+    <label for="chooseDate">{{'Choose Date:' | translate}}</label>
+    <input type="date" [(ngModel)]="selectedDate" id="chooseDate" name="chooseDate">
+  </div>
+
+  <div *ngIf="roleID === '2'">
+    <label style="display: flex; justify-content: center; align-items: center; gap: 20px; padding: 20px;  color: black solid; font-weight: bold;">{{'Shift:'| translate}}
+    <div style="display: flex; gap: 10px; justify-content: center; align-items: center;">
+      <input style="border: 2px solid green;" [(ngModel)]="selectedShift" class="form-check-input" type="radio" name="shift" id="morningShift"
+        value="morning">
+      <label class="form-check-label" for="morningShift">{{'Morning'| translate}}</label>
+    </div>
+    <div style="display: flex; gap: 10px; justify-content: center; align-items: center;" >
+      <input  style="border: 2px solid green;" class="form-check-input" type="radio" name="shift" id="eveningShift" value="evening">
+      <label class="form-check-label" for="eveningShift">{{'Evening'| translate}}</label>
+    </div></label>
+  </div>
+
+  <div *ngIf="roleID === '2'">
+    <button type="button" class="btn btn-success" (click)="addSchedule()">{{'Add Schedule' | translate}}</button>
+  </div>
+
+
+
+
+</body>
+
+</html>
